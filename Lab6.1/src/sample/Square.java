@@ -8,7 +8,8 @@ public class Square implements MyShape {
     private int size;
     private double cordX;
     private double cordY;
-    private String color;
+    private String fillColor;
+    private String strokeColor;
 
     public int getNumberOfSides() {
         return numberOfSides;
@@ -28,22 +29,40 @@ public class Square implements MyShape {
         return cordY;
     }
 
-
-    public String getColor() {
-        return color;
+    @Override
+    public String getFillColor() {
+        return fillColor;
     }
 
-    public Square(double cordX, double cordY, int size) {
+    @Override
+    public String getStrokeColor() {
+        return strokeColor;
+    }
+
+    public Square(  double cordX, double cordY,int size, String fillColor, String strokeColor) {
         this.numberOfSides = 4;
         this.size = size;
         this.cordX = cordX;
         this.cordY = cordY;
+        this.fillColor = fillColor;
+        this.strokeColor = strokeColor;
     }
+
     public void drawShape(GraphicsContext gc , Canvas canvas) {
         gc.fillPolygon(new double[]{getCordX() - size / 2, getCordX() + size / 2, getCordX() + size / 2, getCordX() - size / 2}, new double[]{getCordY() - size / 2, getCordY() - size / 2, getCordY() + size / 2, getCordY() + size / 2}, 4);
+        gc.strokePolygon(new double[]{getCordX() - size / 2, getCordX() + size / 2, getCordX() + size / 2, getCordX() - size / 2}, new double[]{getCordY() - size / 2, getCordY() - size / 2, getCordY() + size / 2, getCordY() + size / 2}, 4);
+
     }
     public void eraseShape(GraphicsContext gc , Canvas canvas) {
-        size +=1;
         gc.fillPolygon(new double[]{getCordX() - size / 2, getCordX() + size / 2, getCordX() + size / 2, getCordX() - size / 2}, new double[]{getCordY() - size / 2, getCordY() - size / 2, getCordY() + size / 2, getCordY() + size / 2}, 4);
+        gc.strokePolygon(new double[]{getCordX() - size / 2, getCordX() + size / 2, getCordX() + size / 2, getCordX() - size / 2}, new double[]{getCordY() - size / 2, getCordY() - size / 2, getCordY() + size / 2, getCordY() + size / 2}, 4);
+
+    }
+    public boolean isInCoords(double mouseX, double mouseY){
+        if(mouseX<=cordX+size/2 && mouseX>= cordX-size/2 && mouseY<=cordY+size/2 && mouseY>= cordY-size/2) {
+            System.out.println("Patrat");
+            return true;
+        }
+        return false;
     }
 }

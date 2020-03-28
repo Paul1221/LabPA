@@ -8,7 +8,8 @@ public class Circle implements MyShape {
     private int size;
     private double cordX;
     private double cordY;
-    private String color;
+    private String fillColor;
+    private String strokeColor;
 
     public int getNumberOfSides() {
         return numberOfSides;
@@ -28,22 +29,38 @@ public class Circle implements MyShape {
         return cordY;
     }
 
-
-    public String getColor() {
-        return color;
+    @Override
+    public String getFillColor() {
+        return fillColor;
     }
 
-    public Circle(double cordX, double cordY, int size) {
+    @Override
+    public String getStrokeColor() {
+        return strokeColor;
+    }
+
+    public Circle(  double cordX, double cordY,int size, String fillColor, String strokeColor) {
         this.numberOfSides = 1;
         this.size = size;
         this.cordX = cordX;
         this.cordY = cordY;
+        this.fillColor = fillColor;
+        this.strokeColor = strokeColor;
     }
     public void drawShape(GraphicsContext gc , Canvas canvas) {
-        gc.fillOval(cordX - size / 2, cordY - size / 2, size, size);
+        gc.fillOval(cordX- size / 2, cordY- size / 2, size, size);
+        gc.strokeOval(cordX- size / 2, cordY- size / 2, size, size);
     }
     public void eraseShape(GraphicsContext gc , Canvas canvas) {
-        size = size +1 ;
-        gc.fillOval(cordX - size / 2, cordY - size / 2, size, size);
+        gc.fillOval(cordX - size / 2, cordY- size / 2 , size, size);
+        gc.strokeOval(cordX- size / 2 , cordY- size / 2 , size, size);
+    }
+    public boolean isInCoords(double mouseX, double mouseY){
+        double distanceToCenter = Math.sqrt((mouseX-cordX)*(mouseX-cordX) + (mouseY-cordY)*(mouseY-cordY));
+        if(distanceToCenter <= size/2) {
+            System.out.println("Cerc");
+            return true;
+        }
+        return false;
     }
 }

@@ -19,6 +19,7 @@
           <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
             <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
             <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
         </columnConstraints>
         <rowConstraints>
           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
@@ -33,6 +34,8 @@
             <ChoiceBox fx:id="fillColor" prefWidth="150.0" GridPane.columnIndex="2" GridPane.rowIndex="1" />
             <Label text="Stroke:" GridPane.columnIndex="3" />
             <ChoiceBox fx:id="strokeColor" layoutX="650.0" layoutY="43.0" prefWidth="150.0" GridPane.columnIndex="3" GridPane.rowIndex="1" />
+            <Label text="Mode:" GridPane.columnIndex="4" />
+            <ChoiceBox fx:id="mode" layoutX="778.0" layoutY="43.0" prefWidth="150.0" GridPane.columnIndex="4" GridPane.rowIndex="1" />
          </children>
       </GridPane>
    </top>
@@ -44,7 +47,7 @@
          <children>
             <Button layoutX="6.0" layoutY="6.0" mnemonicParsing="false" text="Save" />
             <Button layoutX="47.0" layoutY="6.0" mnemonicParsing="false" text="Load" />
-            <Button onMouseClicked="#resetCanvas" layoutX="89.0" layoutY="6.0" mnemonicParsing="false" text="Reset" />
+            <Button layoutX="89.0" layoutY="6.0" mnemonicParsing="false" onMouseClicked="#resetCanvas" text="Reset" />
             <Button layoutX="134.0" layoutY="6.0" mnemonicParsing="false" text="Exit" />
          </children>
       </Pane>

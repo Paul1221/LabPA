@@ -9,6 +9,7 @@ import javafx.scene.control.SpinnerValueFactory;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
+import javafx.util.Pair;
 
 
 import java.net.URL;
@@ -26,7 +27,8 @@ public class Controller implements Initializable {
     private MyCanvas canvas;
     @FXML
     private TextField size;
-
+    @FXML
+    private ChoiceBox<String> mode;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -45,8 +47,12 @@ public class Controller implements Initializable {
         strokeColor.getItems().add("Green");
         strokeColor.getItems().add("Yellow");
         strokeColor.setValue("Random");
+        mode.getItems().add("Draw");
+        mode.getItems().add("Erase");
+        mode.setValue("Draw");
 
     }
+
 
     public void drawMethod() {
 
@@ -55,34 +61,33 @@ public class Controller implements Initializable {
 
             @Override
             public void handle(MouseEvent event) {
-                mouseX = event.getSceneX();
-                mouseY = event.getSceneY();
-                int sizeNumber;
-                int sidesNumber = Integer.parseInt(sides.getValue().toString());
-                if (!size.getText().equals("")) {
-                    sizeNumber = Integer.parseInt(size.getText());
-                } else {
-                    sizeNumber = new Random().nextInt(1000);
+                if(mode.getValue().toString().equals("Draw")) {
+                    mouseX = event.getSceneX();
+                    mouseY = event.getSceneY();
+                    int sizeNumber;
+                    int sidesNumber = Integer.parseInt(sides.getValue().toString());
+                    if(sidesNumber!=2) {
+                        if (!size.getText().equals("")) {
+                            sizeNumber = Integer.parseInt(size.getText());
+                        } else {
+                            sizeNumber = new Random().nextInt(1000);
+                        }
+                        Pair<String,String> colors =canvas.getSetting(fillColor.getValue().toString(), strokeColor.getValue().toString());
+                        canvas.addShape(mouseX - 98, mouseY - 140, sidesNumber, sizeNumber, colors.getKey(), colors.getValue());
+                        canvas.getShapeList().get(canvas.getShapeList().size() - 1).drawShape(canvas.getGc(), canvas);
+                    }
                 }
-                canvas.getSetting(fillColor.getValue().toString(),strokeColor.getValue().toString());
-                canvas.addShape(mouseX-100,mouseY-140,sidesNumber,sizeNumber);
-                canvas.getShapeList().get(canvas.getShapeList().size()-1).drawShape(canvas.getGc(),canvas);
+                else{
+                    mouseX = event.getSceneX();
+                    mouseY = event.getSceneY();
+                    canvas.deleteShape(mouseX-98,mouseY-140);
 
+                }
             }
+
         });
     }
 
-    public void deleteMethod(){
-        canvas.setOnMouseClicked(new EventHandler<MouseEvent>() {
-            double mouseX, mouseY;
-
-            @Override
-            public void handle(MouseEvent event) {
-                mouseX = event.getSceneX();
-                mouseY = event.getSceneY();
-            }
-        });
-    }
 
     public void resetCanvas(){
         canvas.reset();
