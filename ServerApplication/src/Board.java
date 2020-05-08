@@ -21,7 +21,6 @@ public class Board {
     }
 
     public void addPiece(int player, int i, int j) {
-        System.out.println("am intrat");
         boardLayout[i][j] = player;
     }
 
@@ -34,5 +33,19 @@ public class Board {
             }
         }
         return aux.toString();
+    }
+
+    public int isGameFinished() {
+        for (int i = 0; i < 16; i++) {
+            for (int j = 0; j < 11; j++) {
+                if (boardLayout[i][j] == 1 && boardLayout[i][j+1] == 1 && boardLayout[i][j+2] == 1 && boardLayout[i][j+3] == 1 && boardLayout[i][j+4] == 1){
+                    return 1;
+                }
+                if (boardLayout[i][j] != 2 && boardLayout[i][j+1] == 2 && boardLayout[i][j+2] == 2 && boardLayout[i][j+3] == 2 && boardLayout[i][j+4] == 2){
+                    return 2;
+                }
+            }
+        }
+        return 0;
     }
 }
